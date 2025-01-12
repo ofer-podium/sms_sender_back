@@ -1,7 +1,11 @@
 class MessagesService
 
-  def self.fetch_user_messages(user_id)
-    Message.where(user_id: user_id).order(created_at: :desc)
+  def self.fetch_user_messages(user_id, page: 1, per_page: 10)
+    offset = (page - 1) * per_page
+    Message.where(user_id: user_id)
+           .order(created_at: :desc)
+           .limit(per_page)
+           .offset(offset)
   end
 
   

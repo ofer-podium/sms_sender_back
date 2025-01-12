@@ -1,10 +1,9 @@
 module Api
   class MessagesController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:send_message]
+    skip_before_action :verify_authenticity_token, only: [:send_message, :user_messages]
      
     # Fetch messages sent by a specific user
      def user_messages
-      # Get user_id from the request environment
       user_id = request.env['user_id']
       unless user_id
         render json: { error: "Unauthorized: Missing or invalid token" }, status: :unauthorized

@@ -21,14 +21,13 @@ module Api
       # Create the user (also encrypt the password)
       result = UserService.create_user(
         username: params[:username],
-        password: params[:password] # Pass plain text here
+        password: params[:password] 
       )
-    
-      if result[:success]
-        render json: { message: "User created successfully" }, status: :created
-      else
-        render json: { errors: result[:errors] }, status: :unprocessable_entity
-      end
+      
+      result_hash = result.as_json
+      token = JsonWebToken.encode({ user_id: result_hash['user']['id'] })
+      render json: {data:{accessToken: token, refreshToken: token, user: {id:result_hash['user']['id'], username: result_hash['user']['username']}}}
+      
     end
 
     # Login a user
@@ -41,9 +40,9 @@ module Api
       end
 
       # Find the user by username
-      fund_user_result = UserService.find_user_by_username(params[:username])
-      user = fund_user_result[:user]
-      unless fund_user_result[:success]
+      found_user_result = UserService.find_user_by_username(params[:username])
+      user = found_user_result[:user]
+      unless found_user_result[:success]
         render json: { errors: "Invalid username or password" }, status: :unauthorized
         return
       end
@@ -55,7 +54,7 @@ module Api
       end
 
       token = JsonWebToken.encode({ user_id: user.id })
-      render json: { token: token }, status: :ok
+      render json: { data:{accessToken: token, refreshToken: token, user: {id:user.id, username: user.username}} }, status: :ok
     end
   end
 end
