@@ -21,3 +21,4 @@ Rails.application.routes.draw do
   # Root route for the API
   root "api#index"
 end
+

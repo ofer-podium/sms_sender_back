@@ -16,13 +16,13 @@ class PubNubService
       channel: channel,
       message: message
     ).value
-
-    if result[:status] == 200
+  
+    if result.status[:code] == 200
       Rails.logger.info "Message successfully sent to channel #{channel}"
       { success: true }
     else
-      Rails.logger.error "Failed to send message to channel #{channel}: #{result[:error]}"
-      { success: false, error: result[:error] }
+      Rails.logger.error "Failed to send message to channel #{channel}: #{result.status[:error_message]}"
+      { success: false, error: result.status[:error_message] }
     end
   rescue StandardError => e
     Rails.logger.error "PubNub publish failed: #{e.message}"
