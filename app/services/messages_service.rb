@@ -8,9 +8,9 @@ class MessagesService
                       .limit(per_page)
                       .offset(offset)
   
-    total_count = Message.where(user_id: user_id).count
+    total = Message.where(user_id: user_id).count
   
-    { messages: messages, total_count: total_count }
+    { messages: messages, total: total }
   end
 
   

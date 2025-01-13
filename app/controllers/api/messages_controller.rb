@@ -13,7 +13,7 @@ module Api
       limit = params[:limit] || 10
       page = params[:page] || 1
       dbResponse = MessagesService.fetch_user_messages(user_id, page, limit)
-      render json: { messages: dbResponse[:messages], total_count: dbResponse[:total_count] }, status: :ok
+      render json: { messages: dbResponse[:messages], total: dbResponse[:total] }, status: :ok
     end
     
     # Send a message
