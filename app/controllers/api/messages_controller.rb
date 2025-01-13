@@ -83,13 +83,23 @@ module Api
       if result[:success]
         Rails.logger.info "Updated message SID #{message_sid} to status #{message_status}"
     
-        # Fetch the associated user and send a notification to their channel
+        # Fetch the associated user and send a notification to their PubNub channel
         user = result[:message]&.user
         if user&.channel
-          NotificationService.send_to_channel(user.channel, {
-            sid: message_sid,
-            status: message_status
-          })
+          pubnub_service = PubNubService.instance
+          pubnub_result = pubnub_service.publish(
+            channel: user.channel,
+            message: {
+              sid: message_sid,
+              status: message_status
+            }
+          )
+    
+          if pubnub_result[:success]
+            Rails.logger.info "Notification sent to channel #{user.channel} for user ID #{user.id}"
+          else
+            Rails.logger.error "Failed to send notification to channel #{user.channel}: #{pubnub_result[:error]}"
+          end
         else
           Rails.logger.warn "User or channel not found for message SID #{message_sid}"
         end

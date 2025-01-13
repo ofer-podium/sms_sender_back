@@ -23,6 +23,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt', '~> 2.6'
 gem 'twilio-ruby', '~> 7.4.1'
 gem 'rack-cors', require: 'rack/cors'
+gem 'pubnub', '~> 5.0'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
