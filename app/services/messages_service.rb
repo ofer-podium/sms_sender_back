@@ -2,6 +2,7 @@ class MessagesService
 
   def self.fetch_user_messages(user_id, page, per_page)
     offset = (page.to_i - 1) * per_page.to_i
+    per_page = per_page.to_i
     messages = Message.where(user_id: user_id)
                       .order(created_at: :desc)
                       .limit(per_page)
