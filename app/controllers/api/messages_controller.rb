@@ -65,7 +65,7 @@ module Api
     
       if result[:success]
         Rails.logger.info "Updated message SID #{message_sid} to status #{message_status}"
-    
+
         # Fetch the associated user and send a notification to their PubNub channel
         user = result[:message]&.user
         if user&.channel
@@ -73,8 +73,12 @@ module Api
           pubnub_result = pubnub_service.publish(
             channel: user.channel,
             message: {
+              id: result[:message].id,
+              content: result[:message].content,
+              recipient_phone: result[:message].recipient_phone,
+              sent_at: result[:message].sent_at
+              status: message_status,
               sid: message_sid,
-              status: message_status
             }
           )
     
