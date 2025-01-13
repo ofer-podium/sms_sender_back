@@ -39,7 +39,8 @@ class TwilioService
       message = @client.messages.create(
         from: ENV['TWILIO_PHONE_NUMBER'],
         to: to,
-        body: body
+        body: body,
+        status_callback: ENV['TWILIO_STATUS_CALLBACK_URL']
       )
       { success: true, sid: message.sid }
     rescue Twilio::REST::TwilioError => e
