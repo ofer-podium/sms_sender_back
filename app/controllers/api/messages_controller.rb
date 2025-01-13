@@ -59,8 +59,17 @@ module Api
       message_status = params['MessageStatus']
 
       print "SID: #{message_sid}, Status: #{message_status}\n"
+      result = MessagesService.update_message_status(sid: message_sid, status: message_status)
+      if result[:success]
+        Rails.logger.info "Updated message SID #{message_sid} to status #{message_status}"
+        head :no_content # Return 204 No Content as the response
+      else
+        Rails.logger.error "Failed to update message status: #{result[:error]}"
+        render json: { error: result[:error] }, status: :unprocessable_entity
+      end
 
       response.status = 204
     end  
+    
   end
 end

@@ -36,4 +36,16 @@ class MessagesService
   def self.fetch_user_messages(user_id)
     Message.where(user_id: user_id).order(created_at: :desc)
   end
+
+    # Update the status of a message
+    def self.update_message_status(sid:, status:)
+      message = Message.find_by(sid: sid)
+  
+      if message
+        message.update(status: status)
+        { success: true, message: message }
+      else
+        { success: false, error: "Message with SID #{sid} not found" }
+      end
+    end
 end
