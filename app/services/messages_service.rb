@@ -1,11 +1,16 @@
 class MessagesService
 
-  def self.fetch_user_messages(user_id, page: 1, per_page: 10)
+  def self.fetch_user_messages(user_id, page, per_page)
     offset = (page - 1) * per_page
-    Message.where(user_id: user_id)
-           .order(created_at: :desc)
-           .limit(per_page)
-           .offset(offset)
+  
+    messages = Message.where(user_id: user_id)
+                      .order(created_at: :desc)
+                      .limit(per_page)
+                      .offset(offset)
+  
+    total_count = Message.where(user_id: user_id).count
+  
+    { messages: messages, total_count: total_count }
   end
 
   
@@ -30,11 +35,6 @@ class MessagesService
     else
       { success: false, error: "Failed to save message: #{message.errors.full_messages.join(', ')}" }
     end
-  end
-
-  # Fetch all messages for a user
-  def self.fetch_user_messages(user_id)
-    Message.where(user_id: user_id).order(created_at: :desc)
   end
 
     # Update the status of a message
