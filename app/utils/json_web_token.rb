@@ -1,4 +1,3 @@
-# app/utils/json_web_token.rb
 require 'jwt'
 
 module JsonWebToken

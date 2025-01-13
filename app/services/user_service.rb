@@ -45,13 +45,4 @@ class UserService
     end
   end
 
-  # Update an existing user
-  def self.update_user(user_id, attributes)
-    user = User.find_by(id: user_id)
-    if user&.update(attributes)
-      { success: true, user: user }
-    else
-      { success: false, error: "Unable to update user" }
-    end
-  end
 end

@@ -1,4 +1,3 @@
-# app/validators/user_register_validator.rb
 class UserRegisterValidator
     include ActiveModel::Model
   
