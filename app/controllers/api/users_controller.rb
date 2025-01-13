@@ -26,7 +26,8 @@ module Api
       
       result_hash = result.as_json
       token = JsonWebToken.encode({ user_id: result_hash['user']['id'] })
-      render json: {data:{accessToken: token, refreshToken: token, user: {id:result_hash['user']['id'], username: result_hash['user']['username']}}}
+      render json: {data:{accessToken: token, user: {id:result_hash['user']['id'], username: result_hash['user']['username'],channel: result_hash['user']['channel']}}}, status: :created
+
       
     end
 
@@ -54,7 +55,7 @@ module Api
       end
 
       token = JsonWebToken.encode({ user_id: user.id })
-      render json: { data:{accessToken: token, refreshToken: token, user: {id:user.id, username: user.username}} }, status: :ok
+      render json: { data:{accessToken: token, user: {id:user.id, username: user.username,channel: user.channel}}}, status: :ok
     end
   end
 end
