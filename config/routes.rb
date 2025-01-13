@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       collection do
         post :send_message
         get :user_messages
+        post :message_status
       end
     end
   end
