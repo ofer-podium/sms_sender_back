@@ -5,7 +5,7 @@ class MessageInputValidator
   attr_accessor :recipient_phone, :content
 
   validates :recipient_phone, presence: true, format: { with: /\A\+\d{1,15}\z/, message: "must be a valid phone number with country code" }
-  validates :content, presence: true, length: { maximum: 160 }
+  validates :content, presence: true, length: { maximum: 250 }
 
   def self.validate(params)
     validator = new(params)
