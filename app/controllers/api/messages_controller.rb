@@ -76,7 +76,7 @@ module Api
               id: result[:message].id,
               content: result[:message].content,
               recipient_phone: result[:message].recipient_phone,
-              sent_at: result[:message].sent_at
+              sent_at: result[:message].sent_at,
               status: message_status,
               sid: message_sid,
             }
