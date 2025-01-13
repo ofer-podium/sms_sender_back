@@ -1,6 +1,6 @@
 module Api
   class MessagesController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:send_message, :user_messages]
+    skip_before_action :verify_authenticity_token, only: [:send_message, :user_messages, :message_status]
      
     # Fetch messages sent by a specific user
      def user_messages
