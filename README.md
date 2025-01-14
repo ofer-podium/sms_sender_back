@@ -24,5 +24,5 @@ The backend for the SMS Sender project is built using **Ruby on Rails** and serv
 - **Framework**: Ruby on Rails
 - **SMS Service**: Twilio
 - **Real-Time Communication**: PubNub
-- **Database**: Amazon RDS (PostgreSQL)
+- **Database**: Amazon RDS (MySql)
 - **Testing**: RSpec
